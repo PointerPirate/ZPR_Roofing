@@ -14,7 +14,7 @@ export const business = {
   yearsInBusiness: 4,
   roofsCompleted: 800,
   repairsCompleted: 600, 
-  logo: "/images/rugerios-logo.png",
+  logo: "/images/Rugerios-Roofing-profile.png",
   heroImage: "/images/hero-roof.webp",
   homeAdvisorUrl: "https://www.homeadvisor.com/rated.Rugerioscommercial.117513394.html",
   rating: {

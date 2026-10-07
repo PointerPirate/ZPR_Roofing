@@ -33,7 +33,7 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
     author: {
       name: 'Rugerios Roofing Team',
       role: 'Storm Restoration & Roofing Experts',
-      avatarUrl: '/images/rugerios-logo.png',
+      avatarUrl: '/images/Rugerios-Roofing-profile.png',
     },
     tags: ['Storm Damage', 'Hail Inspection', 'Aurora IL', 'Insurance Claims', 'Roof Repair'],
     content: `<h2>The Hidden Danger of Hail Damage in Northern Illinois</h2>
@@ -73,7 +73,7 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
     author: {
       name: 'Rugerios Roofing Team',
       role: 'Residential Roofing Specialists',
-      avatarUrl: '/images/rugerios-logo.png',
+      avatarUrl: '/images/Rugerios-Roofing-profile.png',
     },
     tags: ['Asphalt Shingles', 'Architectural Shingles', 'Roof Replacement', 'Chicagoland'],
     content: `<h2>Choosing the Right Shingle for Severe Midwest Climates</h2>
@@ -111,7 +111,7 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
     author: {
       name: 'Rugerios Roofing Team',
       role: 'Maintenance & Winterization Specialists',
-      avatarUrl: '/images/rugerios-logo.png',
+      avatarUrl: '/images/Rugerios-Roofing-profile.png',
     },
     tags: ['Ice Dams', 'Winter Roofing', 'Attic Ventilation', 'Roof Maintenance', 'Illinois'],
     content: `<h2>The Science Behind Winter Ice Dams</h2>

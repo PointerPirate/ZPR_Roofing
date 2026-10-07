@@ -28,6 +28,14 @@ interface ProjectDetailClientProps {
   relatedProjects: PortfolioItem[]
 }
 
+function isRawFilename(str?: string | null): boolean {
+  if (!str) return true
+  const trimmed = str.trim()
+  if (/\.(jpe?g|png|webp|avif|gif|svg|bmp)$/i.test(trimmed)) return true
+  if (/^(img|dsc|pxp|photo|image|scan)[_ -]?\d+/i.test(trimmed)) return true
+  return false
+}
+
 export function ProjectDetailClient({
   project,
   service,
@@ -160,7 +168,7 @@ export function ProjectDetailClient({
               <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border bg-ink shadow-2xl group">
                 <img
                   src={activeImage.url}
-                  alt={activeImage.caption || project.title}
+                  alt={activeImage.caption && !isRawFilename(activeImage.caption) ? activeImage.caption : project.title}
                   className="size-full object-cover transition-all duration-300"
                 />
 
@@ -215,7 +223,7 @@ export function ProjectDetailClient({
                 )}
 
                 {/* Caption Bar */}
-                {activeImage.caption && (
+                {activeImage.caption && !isRawFilename(activeImage.caption) && (
                   <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-ink/90 via-ink/60 to-transparent p-4 sm:p-6 text-white">
                     <p className="text-sm sm:text-base font-medium drop-shadow-sm">
                       {activeImage.caption}
@@ -242,7 +250,7 @@ export function ProjectDetailClient({
                       >
                         <img
                           src={img.url}
-                          alt={img.caption || `Thumbnail ${i + 1}`}
+                          alt={img.caption && !isRawFilename(img.caption) ? img.caption : `${project.title} photo ${i + 1}`}
                           className="size-full object-cover"
                         />
                       </button>
@@ -337,7 +345,7 @@ export function ProjectDetailClient({
                     <div className="relative aspect-[16/10] overflow-hidden bg-muted">
                       <img
                         src={img.url}
-                        alt={img.caption || `${project.title} photo ${i + 1}`}
+                        alt={img.caption && !isRawFilename(img.caption) ? img.caption : `${project.title} photo ${i + 1}`}
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
@@ -348,13 +356,6 @@ export function ProjectDetailClient({
                         </span>
                       </div>
                     </div>
-                    {img.caption && (
-                      <div className="p-4 bg-card border-t border-border">
-                        <p className="text-sm font-medium text-foreground line-clamp-2">
-                          {img.caption}
-                        </p>
-                      </div>
-                    )}
                   </div>
                 </Reveal>
               ))}
@@ -474,7 +475,7 @@ export function ProjectDetailClient({
             <div className="relative max-h-[78vh] w-full flex items-center justify-center">
               <img
                 src={activeImage.url}
-                alt={activeImage.caption || project.title}
+                alt={activeImage.caption && !isRawFilename(activeImage.caption) ? activeImage.caption : project.title}
                 className="max-h-[78vh] max-w-full rounded-xl object-contain shadow-2xl"
               />
             </div>
@@ -482,7 +483,9 @@ export function ProjectDetailClient({
             {/* Bottom Caption and counter */}
             <div className="mt-4 text-center max-w-2xl px-4">
               <p className="text-white text-base font-semibold drop-shadow">
-                {activeImage.caption || project.title}
+                {activeImage.caption && !isRawFilename(activeImage.caption)
+                  ? activeImage.caption
+                  : project.title}
               </p>
               <p className="text-white/60 text-xs mt-1">
                 Photo {selectedIndex + 1} of {images.length} &middot; Press ESC to close &middot; Use arrow keys to navigate

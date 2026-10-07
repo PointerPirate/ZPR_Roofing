@@ -51,12 +51,12 @@ export function SiteNavbar({ solid }: SiteNavbarProps = {}) {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20">
         <Link href="/" className="flex items-center" aria-label="Rugerios Roofing home">
           <Image
-            src="/images/rugerios-logo.png"
+            src="/images/Rugerios-Roofing-profile.png"
             alt="Rugerios Roofing"
-            width={220}
-            height={220}
+            width={265}
+            height={160}
             priority
-            className="h-14 w-auto lg:h-16"
+            className="h-11 w-auto lg:h-14"
           />
         </Link>
 

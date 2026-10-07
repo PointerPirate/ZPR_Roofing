@@ -53,7 +53,7 @@ export function BlogDetailClient({ post, relatedPosts }: BlogDetailClientProps) 
       name: business.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${business.domain}/images/rugerios-logo.png`,
+        url: `${business.domain}${business.logo}`,
       },
     },
     mainEntityOfPage: {

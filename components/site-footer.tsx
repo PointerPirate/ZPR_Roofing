@@ -11,13 +11,13 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-1">
             <Link href="/" className="inline-flex" aria-label="Rugerios Roofing home">
-              <span className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-2">
+              <span className="inline-flex items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm">
                 <Image
-                  src="/images/rugerios-logo.png"
+                  src="/images/Rugerios-Roofing-profile.png"
                   alt="Rugerios Roofing"
-                  width={160}
-                  height={160}
-                  className="h-16 w-auto"
+                  width={200}
+                  height={120}
+                  className="h-12 w-auto"
                 />
               </span>
             </Link>
