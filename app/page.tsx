@@ -1,36 +1,24 @@
-import { SiteNavbar } from "@/components/site-navbar"
-import { SiteFooter } from "@/components/site-footer"
-import { Hero } from "@/components/home/hero"
-import { Marquee } from "@/components/home/marquee"
-import { ServicesSection } from "@/components/home/services-section"
-import { ProjectsGallery } from "@/components/home/projects-gallery"
-import { Stats } from "@/components/home/stats"
-import { Process } from "@/components/home/process"
-import { WhyUs } from "@/components/home/why-us"
-import { Reviews } from "@/components/home/reviews"
-import { FAQ } from "@/components/home/faq"
-import { CTA } from "@/components/home/cta"
-import { fetchPortfolioFromAPI } from "@/lib/services"
+import { Header } from "@/components/header";
+import { Hero } from "@/components/hero";
+import { TrustBar } from "@/components/trust-bar";
+import { ServicesGrid } from "@/components/services-grid";
+import { PreviewCardsSection } from "@/components/preview-cards";
+import { HomepageServiceArea } from "@/components/homepage-service-area";
+import { Footer } from "@/components/footer";
+import { JsonLd } from "@/components/json-ld";
+import { localBusinessSchema } from "@/lib/schema";
 
-export default async function Home() {
-  const projects = await fetchPortfolioFromAPI()
-
+export default function Home() {
   return (
-    <>
-      <SiteNavbar />
-      <main>
-        <Hero />
-        <Marquee />
-        <ServicesSection />
-        <ProjectsGallery projects={projects} />
-        <Stats />
-        <Process />
-        <WhyUs />
-        <Reviews />
-        <FAQ />
-        <CTA />
-      </main>
-      <SiteFooter />
-    </>
-  )
+    <main className="min-h-screen">
+      <JsonLd data={localBusinessSchema()} />
+      <Header />
+      <Hero />
+      <TrustBar />
+      <ServicesGrid />
+      <PreviewCardsSection />
+      <HomepageServiceArea />
+      <Footer />
+    </main>
+  );
 }

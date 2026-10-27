@@ -1,115 +1,83 @@
-import { Analytics } from '@vercel/analytics/next'
-import type { Metadata, Viewport } from 'next'
-import { Archivo, Inter } from 'next/font/google'
-import { business, serviceAreas } from '@/lib/business'
-import './globals.css'
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "@/components/theme-provider";
+import "./globals.css";
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const archivo = Archivo({
-  subsets: ['latin'],
-  variable: '--font-archivo',
-  weight: ['600', '700', '800', '900'],
-  display: 'swap',
-})
+const _inter = Inter({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(business.domain),
-  title: `Roofing Contractor in ${business.cityState} | Rugerios Roofing`,
-  description: `Rugerios Roofing is a family-owned roofing contractor in ${business.city}, ${business.state}. Roof replacement, repair & storm damage. Book your free inspection today.`,
-  alternates: {
-    canonical: '/',
+  metadataBase: new URL("https://www.zprroofing.com"),
+  title: {
+    default: "ZPR Roofing | Roofer in Rockford, IL & Southern Wisconsin",
+    template: "%s | ZPR Roofing",
   },
-  icons: {
-    icon: '/icon.png',
-    shortcut: '/icon.png',
-    apple: '/icon.png',
-  },
+  description:
+    "Family-owned roofing contractor serving Northern Illinois and Southern Wisconsin. Roof repair, replacement, metal, commercial and storm damage. Free estimates.",
+  authors: [{ name: "ZPR Roofing" }],
   openGraph: {
-    type: 'website',
-    url: business.domain,
-    siteName: 'Rugerios Roofing',
-    title: `Roofing Contractor in ${business.cityState} | Rugerios Roofing`,
-    description: `Family-owned roofing contractor serving ${business.city}, ${business.state}. Roof replacement, repair, storm damage & free inspections.`,
-    images: [{ url: business.heroImage, width: 1920, height: 2560, alt: 'Rugerios Roofing crew installing roofing membrane' }],
+    type: "website",
+    locale: "en_US",
+    url: "https://www.zprroofing.com",
+    siteName: "ZPR Roofing",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: `Roofing Contractor in ${business.cityState} | Rugerios Roofing`,
-    description: `Family-owned roofing contractor serving ${business.city}, ${business.state}. Free inspections available.`,
-    images: [business.heroImage],
+    card: "summary_large_image",
   },
-  generator: 'v0.app',
-}
-
-export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: '#1a1a1a',
-}
-
-const roofingContractorSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'RoofingContractor',
-  '@id': `${business.domain}/#business`,
-  name: business.name,
-  image: `${business.domain}${business.heroImage}`,
-  logo: `${business.domain}${business.logo}`,
-  url: business.domain,
-  telephone: business.phoneDisplay,
-  email: business.email,
-  priceRange: business.priceRange,
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5.0',
-    reviewCount: '17',
-    bestRating: '5',
-    worstRating: '1',
-  },
-  sameAs: [business.homeAdvisorUrl],
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: business.city,
-    addressRegion: business.state,
-    addressCountry: 'US',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: business.geo.latitude,
-    longitude: business.geo.longitude,
-  },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '07:00',
-      closes: '17:00',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
-  ],
-  areaServed: serviceAreas.map((area) => ({
-    '@type': 'AdministrativeArea',
-    name: `${area.name} County, ${business.state}`,
-  })),
-}
+  },
+  icons: {
+    icon: "/tab-logo.png",
+    shortcut: "/tab-logo.png",
+    apple: "/tab-logo.png",
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`bg-background ${inter.variable} ${archivo.variable}`}>
-      <body className="font-sans antialiased" suppressHydrationWarning>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(roofingContractorSchema) }}
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="NiC6IylfCAzclWxmgAPnSclJry1FegpyeW5TNUck2UQ"
         />
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <link
+          rel="icon"
+          href="/tab-logo.png"
+          type="image/svg+xml"
+          style={{ width: "100px", height: "100px" }}
+        />
+        <link
+          rel="shortcut icon"
+          href="/tab-logo.png"
+          style={{ width: "100px", height: "100px" }}
+        />
+      </head>
+      <body className={`font-sans antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+        <Analytics />
       </body>
     </html>
-  )
+  );
 }

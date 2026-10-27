@@ -1,15 +1,15 @@
-import type { MetadataRoute } from "next"
-import { business } from "@/lib/business"
-
-export const dynamic = "force-static"
+import type { MetadataRoute } from "next";
+import { BUSINESS } from "@/lib/site-data";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: `${business.domain}/sitemap.xml`,
-    host: business.domain,
-  }
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+    ],
+    sitemap: `${BUSINESS.siteUrl}/sitemap.xml`,
+  };
 }

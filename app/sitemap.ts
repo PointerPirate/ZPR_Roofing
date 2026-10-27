@@ -1,50 +1,40 @@
-import type { MetadataRoute } from "next"
-import { business, serviceAreas } from "@/lib/business"
-import { services, fetchPortfolioFromAPI } from "@/lib/services"
-import { getAllBlogPosts } from "@/lib/blog"
+import type { MetadataRoute } from "next";
+import { CITIES, SERVICES, BUSINESS } from "@/lib/site-data";
 
-export const dynamic = "force-static"
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = BUSINESS.siteUrl;
+  const now = new Date();
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = business.domain
-  const lastModified = new Date()
+  const staticPages = [
+    "",
+    "/about",
+    "/areas-we-serve",
+    "/contact",
+    "/faq",
+    "/portfolio",
+    "/testimonials",
+    "/privacy",
+    "/terms",
+  ].map((path) => ({
+    url: `${base}${path}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: path === "" ? 1.0 : 0.7,
+  }));
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${base}/`, lastModified, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/schedule`, lastModified, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/about`, lastModified, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/blog`, lastModified, changeFrequency: "daily", priority: 0.9 },
-  ]
-
-  const serviceRoutes: MetadataRoute.Sitemap = services.map((s) => ({
+  const servicePages = SERVICES.map((s) => ({
     url: `${base}/services/${s.slug}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 0.9,
-  }))
-
-  const serviceAreaRoutes: MetadataRoute.Sitemap = serviceAreas.map((a) => ({
-    url: `${base}/service-areas/${a.slug}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }))
-
-  const blogPosts = await getAllBlogPosts()
-  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((p) => ({
-    url: `${base}/blog/${p.slug}`,
-    lastModified: p.publishedAt ? new Date(p.publishedAt) : lastModified,
-    changeFrequency: "monthly",
+    lastModified: now,
+    changeFrequency: "monthly" as const,
     priority: 0.8,
-  }))
+  }));
 
-  const portfolio = await fetchPortfolioFromAPI()
-  const projectRoutes: MetadataRoute.Sitemap = portfolio.map((proj) => ({
-    url: `${base}/projects/${proj.id}`,
-    lastModified: proj.completedAt ? new Date(proj.completedAt) : lastModified,
-    changeFrequency: "monthly",
+  const cityPages = CITIES.map((c) => ({
+    url: `${base}/areas-we-serve/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
     priority: 0.8,
-  }))
+  }));
 
-  return [...staticRoutes, ...serviceRoutes, ...serviceAreaRoutes, ...blogRoutes, ...projectRoutes]
+  return [...staticPages, ...servicePages, ...cityPages];
 }
